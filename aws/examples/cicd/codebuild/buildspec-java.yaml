@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  build:
+    commands:
+      - mvn -Dmaven.test.skip package
+      - ls -l target/
+artifacts:
+  files:
+  - '**/*/${repo}.jar'
+  - appspec.yml
+  - scripts/start_server.sh
+  - scripts/stop_server.sh
+  - scripts/validate_server.sh
+  - scripts/afterInstall.sh
