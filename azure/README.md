@@ -69,4 +69,4 @@ There are three providers created by HashiCorp and other three directly by Azure
 It seems like Azure Blob is the best option to store the terraform state because Azure has compatibility with Terraform according to them
 
 > test
-mongodb+srv://sergiovalencia:0byrkqTq5LgKyk9W@cluster0.x0ny0nr.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://sergiovalencia:0byrkqTq5LgKyk9W@cluster0.x0ny0nr.mongodb.net/myDatabase?retryWrites=true&w=majority
