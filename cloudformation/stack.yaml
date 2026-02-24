@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: Base module with nested stacks
+
+Parameters:
+  GlobalNameTag:
+    Description: This name will be in all of the resource name tags
+    Type: String
+    Default: base
+Resources:
+  iamModule:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cf-templates.s3.us-east-1.amazonaws.com/iam.yaml
+      Parameters:
+        IamNameTag: first
+      # StackName: myCustomNaming01
+
+  vpcModule:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://cf-templates.s3.us-east-1.amazonaws.com/vpc.yaml
+      Parameters:
+        VpcTag: second
+      # StackName: myCustomNaming02
+
+Outputs:
+  currentAccount:
+    Description: The ID of the AWS account
+    Value: !Ref AWS::AccountId
+  currentRegion:
+    Description: The region of the stack and their resources
+    Value: !Ref AWS::Region
+  currentRegion:
+    Description: The region of the stack and their resources
+    Value: !Ref AWS::Region
+
+  iamModuleGroupArn:
+    Description: The group arn from iam embeded stack
+    Value: !GetAtt iamModule.Outputs.iamGroupArn
+  iamModuleusername1Arn:
+    Description: The 1 username from iam embeded stack
+    Value: !GetAtt iamModule.Outputs.username1
+  iamModuleusername2Arn:
+    Description: The 2 username from iam embeded stack
+    Value: !GetAtt iamModule.Outputs.username2
+  iamModuleusername3Arn:
+    Description: The 3 username from iam embeded stack
+    Value: !GetAtt iamModule.Outputs.username3
+
+  vpcModuleCidr:
+    Description: The cidr of the VPC from vpc embeded stack
+    Value: !GetAtt vpcModule.Outputs.vpcCidr
+  vpcModuleDefaultSecurityGroup:
+    Description: The default security group of the VPC from vpc embeded stack
+    Value: !GetAtt vpcModule.Outputs.vpcDefaultSecurityGroup
+  vpcModuleId:
+    Description: The vpc ID from vpc embeded stack
+    Value: !GetAtt vpcModule.Outputs.vpcId
+  vpcModuleSgpId:
+    Description: The ID of the security group from vpc embeded stack
+    Value: !GetAtt vpcModule.Outputs.vpcSgpId
+
+  moduleIamArn:
+    Description: The iam embeded stack name
+    Value: !Ref iamModule
+  moduleVpcArn:
+    Description: The vpc embeded stack name
+    Value: !Ref vpcModule
